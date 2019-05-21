@@ -1,11 +1,11 @@
 var data = averages.filter(category => category.show == true);
-// var data = averages;
 
+// Setup SVG canvas w/ margin
 var svg = d3.select("svg"),
   margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
+    top: 50,
+    right: 50,
+    bottom: 50,
     left: 50
   },
   width = +svg.attr("width") - margin.left - margin.right,
@@ -14,6 +14,7 @@ var svg = d3.select("svg"),
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+// Assign color scale for graph
 var z = d3
   .scaleOrdinal()
   .range([
@@ -26,9 +27,9 @@ var z = d3
     "#ff8c00"
   ]);
 
+// updateChart essentially rerenders the whole charts using the filtered data passed to it in updateFilter below
 function updateChart(data) {
-  var data = averages.filter(category => category.show == true);
-
+  //generate the settings for the x and y scales
   var x = d3
     .scaleBand()
     .range([0, width])
@@ -50,11 +51,23 @@ function updateChart(data) {
       })
     ]);
 
+  //first remove the existing axes/titles, and rerended w/ new data
   g.select(".xaxis").remove();
   g.append("g")
     .attr("transform", "translate(0," + height + ")")
     .attr("class", "xaxis")
     .call(d3.axisBottom(x));
+
+  svg.select(".xTitle").remove();
+  svg
+    .append("text")
+    .attr("class", "xTitle")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + margin.top + 40) + ")"
+    )
+    .style("text-anchor", "middle")
+    .text("Category");
 
   g.select(".yaxis").remove();
   g.append("g")
@@ -68,6 +81,7 @@ function updateChart(data) {
     .attr("text-anchor", "end")
     .text("Salary Increase");
 
+  //Remove all the bars and redraw them all. not ideal, but works
   g.selectAll(".bar")
     .remove()
     .exit()
@@ -89,18 +103,18 @@ function updateChart(data) {
       return z(d.category);
     });
 }
-
+//draw the chart initially
 updateChart(data);
 
+//updateFilter is called from checkbox toggles in the HTML, and flips the "show" Boolean of the data object.
 function updateFilter(category) {
   for (let average of averages) {
     if (average.category == category) {
       average.show = !average.show;
     }
   }
-  // data = averages.filter(category => category.show == true);
-  updateChart(data);
-  // updateAxis();
+  //filter the data based on whether it should be shown
+  updateChart(averages.filter(category => category.show == true));
   console.log(
     "This will hopefully maybe update something. Someday.",
     category,
