@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="response.js"></script>
+    <script type="text/javascript" src="dataAnalysis.js"></script>
+
+    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="chart.js" defer></script>
+  </head>
+  <body>
+    <svg class="chart" width="960" height="500"></svg>
+
+    <h1>Show checkboxes:</h1>
+
+    <form onsubmit="">
+      <input
+        type="checkbox"
+        name="category1"
+        value="Women"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Women<br />
+      <input
+        type="checkbox"
+        name="category2"
+        value="Men"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Men<br />
+      <input
+        type="checkbox"
+        name="category3"
+        value="POC"
+        onclick="updateFilter(value);"
+        checked
+      />
+      POC<br />
+      <input
+        type="checkbox"
+        name="category4"
+        value="Veteran"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Veteran<br />
+      <input
+        type="checkbox"
+        name="category5"
+        value="One Class"
+        onclick="updateFilter(value);"
+        checked
+      />
+      One Class<br />
+      <input
+        type="checkbox"
+        name="category6"
+        value="Multiple Classes"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Mutliple Classes<br />
+      <input
+        type="checkbox"
+        name="category7"
+        value="Overall"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Overall<br />
+      <input
+        type="checkbox"
+        name="category8"
+        value="Below Median"
+        onclick="updateFilter(value);"
+        checked
+      />
+      Below Median<br />
+      <input type="submit" value="Reset" />
+    </form>
+  </body>
+</html>
